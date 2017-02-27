@@ -214,7 +214,7 @@
 
         #endregion
 
-        #region Create memebers
+        #region Create members
 
         private void CreateOutputWindow()
         {
@@ -295,12 +295,13 @@
         #region Resolveur Events
 
         private void resolveur_HasBuildErrorsEvent(
-            string projectName)
+            string projectName, string buildLogFile)
         {
             _helper.ShowMessageBox(
                 "Resolve Unused References",
                 "Project " + projectName +
-                " already has compile errors. Please ensure it has no build errors and retry removing references.");
+                " already has compile errors. Please ensure it has no build errors and retry removing references."+
+                " See the log file: "+ buildLogFile);
             _helper.EndWaitDialog();
         }
 

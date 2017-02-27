@@ -110,11 +110,11 @@
 
         // rethrow event
         private void resolver_HasBuildErrorsEvent(
-            string projectName)
+            string projectName, string buildLogPath)
         {
             if (HasBuildErrorsEvent != null)
             {
-                HasBuildErrorsEvent(projectName);
+                HasBuildErrorsEvent(projectName, buildLogPath);
                 _isCancel = true;
             }
         }

@@ -16,7 +16,10 @@
         {
             // at least solution path is required
             if (args == null || args.Length == 0)
+            {
+                Console.WriteLine("Solution path is required...");
                 return;
+            }
 
             // 1st arg must be valid solution path 
             if (!File.Exists(args[0]))
@@ -35,12 +38,13 @@
 
             // preset msbuild path checking if it were present
             var msbuildPath = FindMsBuildPath(platform);
+
             if (string.IsNullOrWhiteSpace(msbuildPath))
             {
                 Console.WriteLine("MsBuild Not found on system. Aborting...");
                 return;
             }
-
+            Console.WriteLine("MSBuild found at:" + msbuildPath);
             // resolve for project or soluion
             IResolveUR resolveur = null;
             if (filePath.EndsWith("proj"))
@@ -77,9 +81,9 @@
         }
 
         private static void resolveur_HasBuildErrorsEvent(
-            string projectName)
+            string projectName, string buildLogPath)
         {
-            Console.WriteLine("{0} has build errors.", projectName);
+            Console.WriteLine("{0} has build errors. See:{1}", projectName, buildLogPath);
         }
 
 

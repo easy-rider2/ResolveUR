@@ -43,6 +43,8 @@
             }
         }
 
+        public string BuildLogPath { get; set; }
+
         public string BuilderPath { get; set; }
 
         public bool IsResolvePackage { get; set; }
@@ -210,20 +212,20 @@
             const string error = "error";
 
             var tempPath = Path.GetTempPath();
-            var logFile = tempPath + @"\" + logFileName;
+            BuildLogPath = tempPath + @"\" + logFileName;
 
             var startInfo = new ProcessStartInfo
             {
                 FileName = BuilderPath,
-                Arguments = string.Format(CultureInfo.CurrentCulture, argumentsFormat, FilePath, logFile),
+                Arguments = string.Format(CultureInfo.CurrentCulture, argumentsFormat, FilePath, BuildLogPath),
                 CreateNoWindow = true,
                 UseShellExecute = false,
                 WorkingDirectory = tempPath
             };
 
             // clear build log file if it was left out for some reason
-            if (File.Exists(logFile))
-                File.Delete(logFile);
+            if (File.Exists(BuildLogPath))
+                File.Delete(BuildLogPath);
 
             var status = 0;
             using (var exeProcess = Process.Start(startInfo))
@@ -234,11 +236,11 @@
             }
 
             // open build log to check for errors
-            if (!File.Exists(logFile))
+            if (!File.Exists(BuildLogPath))
                 return true;
 
-            var s = File.ReadAllText(logFile);
-            File.Delete(logFile);
+            var s = File.ReadAllText(BuildLogPath);
+            //File.Delete(BuildLogPath); Don't delete the log file
 
             // if build error, the reference cannot be removed
             return status != 0 && (s.Contains(error) || s == string.Empty);
@@ -252,7 +254,7 @@
 
         private void RaiseBuildErrorsEvent()
         {
-            HasBuildErrorsEvent?.Invoke(Path.GetFileNameWithoutExtension(FilePath));
+            HasBuildErrorsEvent?.Invoke(Path.GetFileNameWithoutExtension(FilePath), BuildLogPath);
         }
 
         private void RaiseItemGroupResolvedEvent()

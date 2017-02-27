@@ -2,7 +2,7 @@
 {
     using System;
 
-    public delegate void HasBuildErrorsEventHandler(string projectName);
+    public delegate void HasBuildErrorsEventHandler(string projectName, string logFilePath);
 
     public delegate void ProgressMessageEventHandler(string message);
 
