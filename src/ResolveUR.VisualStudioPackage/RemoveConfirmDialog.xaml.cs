@@ -3,20 +3,20 @@
     using System.Windows;
 
     /// <summary>
-    ///     Interaction logic for PackageDialog.xaml
+    ///     Interaction logic for RemoveConfirmDialog.xaml
     /// </summary>
-    public partial class PackageDialog
+    public partial class RemoveConfirmDialog
     {
-        public PackageDialog()
+        public RemoveConfirmDialog()
         {
             InitializeComponent();
         }
 
-        public bool IsResolvePackage { get; set; }
+        public bool IsRemoveConfirm { get; set; }
 
         void btnYes_Click(object sender, RoutedEventArgs e)
         {
-            IsResolvePackage = true;
+            IsRemoveConfirm = true;
             Close();
         }
 

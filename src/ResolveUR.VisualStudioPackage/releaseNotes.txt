@@ -1,1 +1,6 @@
-This release adds a progress dialog as well as removal of nuget references in conjunction with assembly references. Package folders are also deleted.
+6/05/2017: Added VS2017 install paths for latest MSBuild support
+4/15/2017: Fixed project references not removed.
+4/13/2017: Fixed error due to non-existent packages.config file.
+Unused References are presented in machine's default text editor and allows excluding references from removal. 
+A final confirmation is also added so no changes are done should user decides to change his/her mind.
+Nuget packages marked as development dependency are also excluded.
